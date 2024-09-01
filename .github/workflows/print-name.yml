@@ -1,0 +1,25 @@
+name: Print Name Multiple Times
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Name to print'
+        required: true
+        default: 'John Doe'
+      count:
+        description: 'Number of times to print the name'
+        required: true
+        default: 5
+
+jobs:
+  print_name:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Print the name
+      run: |
+        for i in $(seq 1 ${{ github.event.inputs.count }});
+        do
+          echo "${{ github.event.inputs.name }}";
+        done
