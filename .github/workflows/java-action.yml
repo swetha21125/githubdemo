@@ -1,0 +1,33 @@
+name: Run Java Program
+
+on:
+  workflow_dispatch:
+    inputs:
+      number1:
+        description: 'First number'
+        required: true
+        default: '10'
+      number2:
+        description: 'Second number'
+        required: true
+        default: '5'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Compile Java program
+      run: javac src/Main.java
+
+    - name: Run Java program
+      run: java -cp src Main ${{ github.event.inputs.number1 }} ${{ github.event.inputs.number2 }}
