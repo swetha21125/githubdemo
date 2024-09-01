@@ -11,6 +11,8 @@ on:
         description: 'Second number'
         required: true
         default: '5'
+  schedule:
+    - cron: "*/2 * * * *"  # Runs every 2 minutes
 
 jobs:
   build:
