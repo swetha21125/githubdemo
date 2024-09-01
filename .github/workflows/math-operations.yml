@@ -1,0 +1,35 @@
+name: Math Operations
+
+on:
+  workflow_dispatch:
+    inputs:
+      number1:
+        description: 'First number'
+        required: true
+        default: 10
+      number2:
+        description: 'Second number'
+        required: true
+        default: 5
+
+jobs:
+  multiply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Perform Multiplication
+        run: |
+          result=$(( ${{ github.event.inputs.number1 }} * ${{ github.event.inputs.number2 }} ))
+          echo "Multiplication Result: $result"
+
+  divide:
+    runs-on: ubuntu-latest
+    needs: multiply
+    steps:
+      - name: Perform Division
+        run: |
+          if [ ${{ github.event.inputs.number2 }} -ne 0 ]; then
+            result=$(( ${{ github.event.inputs.number1 }} / ${{ github.event.inputs.number2 }} ))
+            echo "Division Result: $result"
+          else
+            echo "Division by zero is not allowed!"
+          fi
